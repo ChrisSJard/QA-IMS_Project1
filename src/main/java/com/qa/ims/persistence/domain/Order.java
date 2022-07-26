@@ -10,17 +10,22 @@ public class Order {
 	private Long customerID;
 	private Long productID;
 	
-	public Order(Long customerid, Long productid) {
+	public Order(Date dateNow, Long customerid, Long productid) {
 		this.customerID = customerid;
 		this.productID = productid;
 	}
 	
-	public Order(Long id, Date orderDate, Long customerid, Long productid) {
+	public Order(Long id, Long productid) {
 		this.setOrderID(id);
-		this.setOrderDate(orderDate);
-		this.setCustomerID(customerid);
 		this.setProductID(productid);
 		
+	}
+	
+	public Order(Long id, Date orderDate, Long customerid,Long productid) {
+		this.setOrderID(id);
+		this.setProductID(productid);
+		this.setOrderDate(orderDate);
+		this.setCustomerID(customerid);
 	}
 
 	public Long getOrderID() {
