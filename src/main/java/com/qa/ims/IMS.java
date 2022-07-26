@@ -7,8 +7,10 @@ import com.qa.ims.controller.Action;
 import com.qa.ims.controller.CrudController;
 import com.qa.ims.controller.CustomerController;
 import com.qa.ims.controller.OrderController;
+import com.qa.ims.controller.ProductController;
 import com.qa.ims.persistence.dao.CustomerDAO;
 import com.qa.ims.persistence.dao.OrderDAO;
+import com.qa.ims.persistence.dao.ProductDAO;
 import com.qa.ims.persistence.domain.Domain;
 import com.qa.ims.utils.DBUtils;
 import com.qa.ims.utils.Utils;
@@ -19,15 +21,17 @@ public class IMS {
 
 	private final CustomerController customers;
 	private final OrderController orders;
-	//private final Product;
+	private final ProductController products;
 	private final Utils utils;
 
 	public IMS() {
 		this.utils = new Utils();
 		final CustomerDAO custDAO = new CustomerDAO();
 		final OrderDAO orderDAO = new OrderDAO();
+		final ProductDAO productDAO = new ProductDAO();
 		this.customers = new CustomerController(custDAO, utils);
 		this.orders = new OrderController(orderDAO, utils);
+		this.products = new ProductController(productDAO, utils);
 	}
 
 	public void imsSystem() {
@@ -37,7 +41,7 @@ public class IMS {
 		Domain domain = null;
 		do {
 			LOGGER.info("Which entity would you like to use?");
-			Domain.printDomains();git 
+			Domain.printDomains();
 
 			domain = Domain.getDomain(utils);
 
@@ -56,13 +60,16 @@ public class IMS {
 				active = this.customers;
 				break;
 			case ITEM:
+				active = this.products;
 				break;
 			case ORDER:
 				active = this.orders;
 				break;
 			case STOP:
+				changeDomain = true;
 				return;
 			default:
+				LOGGER.info(() ->"Please select a valid input or use STOP to close to application");
 				break;
 			}
 
