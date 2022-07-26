@@ -1,11 +1,14 @@
 package com.qa.ims.controller;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.qa.ims.persistence.dao.OrderDAO;
+import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.Utils;
 
@@ -17,7 +20,6 @@ public class OrderController implements CrudController<Order>{
 	private Utils utils;
 	
 	public OrderController(OrderDAO orderDAO, Utils utils) {
-		// TODO Auto-generated constructor stub
 		super();
 		this.orderDAO = orderDAO;
 		this.utils = utils;
@@ -34,14 +36,24 @@ public class OrderController implements CrudController<Order>{
 
 	@Override
 	public Order create() {
-		LOGGER.info("Please ");
-		// Date date = Date.valueOf(LocalDate.now());
-		return null;
+		LOGGER.info("Please enter a customer id number");
+		Long custID = utils.getLong();
+		LOGGER.info("Please enter product id number");
+		Long prodID = utils.getLong();
+		Date dateNow = Date.valueOf(LocalDate.now());
+		Order order = orderDAO.create(new Order(dateNow, custID, prodID));
+		LOGGER.info("Order succesfully made");
+		return order;
 	}
 
 	@Override
 	public Order update() {
-		return null;
+		LOGGER.info("Please enter your order id ref of the order you would like to update");
+		Long id = utils.getLong();
+		LOGGER.info("Please enter a product id you want to change");
+		Long prodID = utils.getLong();
+		Order order = orderDAO.update(new Order(id, prodID));
+		return order;
 	}
 
 	@Override
