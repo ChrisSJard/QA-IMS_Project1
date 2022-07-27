@@ -66,20 +66,44 @@ public class OrderDAO implements Dao<Order>{
 
 	@Override
 	public Order create(Order t) {
+		if (checkProdID(t.getProductid())) {
+			try (Connection connection = DBUtils.getInstance().getConnection();
+					PreparedStatement statement = connection
+							.prepareStatement("INSERT INTO orders(customer_id, order_date, required_date, product_id) VALUES (?, ?, ?, ?)");) {
+				statement.setLong(1, t.getCustomerID());
+				statement.setDate(2, t.getOrderDate());
+				statement.setDate(3, t.getRequiredDate());
+				statement.setLong(4, t.getProductid());
+				statement.executeUpdate();
+				makeOrder(t);
+				return readLatest();	
+			} catch (Exception e) {
+				LOGGER.debug(e);
+				LOGGER.error(e.getMessage());
+			}
+			return null;
+		}else {
+			LOGGER.warn("Please enter a valid product id\n");
+			return null;
+		}
+	}
+	
+
+	private boolean checkProdID(Long prodID) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection
-						.prepareStatement("INSERT INTO orders(customer_id, order_date, required_date) VALUES (?, ?, ?)");) {
-			statement.setLong(1, t.getCustomerID());
-			statement.setDate(2, t.getOrderDate());
-			statement.setDate(3, t.getRequiredDate());
-			statement.executeUpdate();
-			makeOrder(t);
-			return readLatest();
+				PreparedStatement statement = connection.prepareStatement("SELECT * FROM products WHERE id = ? LIMIT 1");) {
+			statement.setLong(1, prodID);
+			try (ResultSet resultSet = statement.executeQuery();) {
+				resultSet.next();
+				Long productID = resultSet.getLong("product_id");
+				LOGGER.info(productID);
+				return true;
+			}
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
 		}
-		return null;
+		return false;
 	}
 
 	private void makeOrder(Order t) {
