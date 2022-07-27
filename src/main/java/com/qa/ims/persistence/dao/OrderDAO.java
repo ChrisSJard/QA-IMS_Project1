@@ -88,6 +88,7 @@ public class OrderDAO implements Dao<Order>{
 						.prepareStatement("UPDATE orders SET id = ?, required_date = ? WHERE id = ?");) {
 			statement.setLong(1, t.getOrderID());
 			statement.setDate(2, t.getRequiredDate());
+			statement.setLong(3, t.getOrderID());
 			statement.executeUpdate();
 			return read(t.getOrderID());
 		} catch (Exception e) {
