@@ -7,16 +7,19 @@ public class Product {
 	private Long productid;
 	private String description;
 	private String name;
+	private Double value;
 
-	public Product(String name, String description) {
-		this.name = name;
-		this.description = description;
+	public Product(String name, String description, Double value) {
+		this.setName(name);
+		this.setDescription(description);
+		this.setValue(value);
 	}
 	
-	public Product(Long productid, String name, String description) {
+	public Product(Long productid, String name, String description, Double value) {
 		this.setProductid(productid);
 		this.setName(name);
 		this.setDescription(description);
+		this.setValue(value);
 	}
 	
 	public Long getProductid() {
@@ -43,14 +46,23 @@ public class Product {
 		this.name = name;
 	}
 
+	public Double getValue() {
+		return value;
+	}
+
+	public void setValue(Double value) {
+		this.value = value;
+	}
+
 	@Override
 	public String toString() {
-		return "Product [productid=" + productid + ", name=" + name + ", description=" + description + "]";
+		return "Product [productid=" + productid + ", description=" + description + ", name=" + name + ", value= £"
+				+ value + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, name, productid);
+		return Objects.hash(description, name, productid, value);
 	}
 
 	@Override
@@ -63,8 +75,12 @@ public class Product {
 			return false;
 		Product other = (Product) obj;
 		return Objects.equals(description, other.description) && Objects.equals(name, other.name)
-				&& Objects.equals(productid, other.productid);
+				&& Objects.equals(productid, other.productid) && Objects.equals(value, other.value);
 	}
+
+	
+	
+	
 	
 	
 

@@ -68,9 +68,10 @@ public class ProductDAO implements Dao<Product>{
 	public Product create(Product t) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("INSERT INTO products(name, description) VALUES (?, ?)");) {
+						.prepareStatement("INSERT INTO products(name, description, value) VALUES (?, ?, ?)");) {
 			statement.setString(1, t.getName());
 			statement.setString(2, t.getDescription());
+			statement.setDouble(3, t.getValue());
 			statement.executeUpdate();
 			return readLatest();
 		} catch (Exception e) {
@@ -84,10 +85,11 @@ public class ProductDAO implements Dao<Product>{
 	public Product update(Product t) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("UPDATE products SET name = ?, description = ? WHERE id = ?");) {
+						.prepareStatement("UPDATE products SET name = ?, description = ?, value = ? WHERE id = ?");) {
 			statement.setString(1, t.getName());
 			statement.setString(2, t.getDescription());
-			statement.setLong(3, t.getProductid());
+			statement.setDouble(3, t.getValue());
+			statement.setLong(4, t.getProductid());
 			statement.executeUpdate();
 			return read(t.getProductid());
 		} catch (Exception e) {
@@ -115,7 +117,8 @@ public class ProductDAO implements Dao<Product>{
 		Long productid = resultSet.getLong("id");
 		String name = resultSet.getString("name");
 		String description = resultSet.getString("description");
-		return new Product(productid, name, description);
+		Double value = resultSet.getDouble("value");
+		return new Product(productid, name, description, value);
 	}
 
 }

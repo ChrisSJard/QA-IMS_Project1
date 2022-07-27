@@ -41,7 +41,9 @@ public class OrderController implements CrudController<Order>{
 		String deliveryDate = utils.getString();
 		Date requiredDate= Date.valueOf(deliveryDate);//converting string into sql date 
 		Date dateNow = Date.valueOf(LocalDate.now());
-		Order order = orderDAO.create(new Order(custID, dateNow, requiredDate));
+		LOGGER.info("Please enter a item id number (must exist in database)");
+		Long prodID = utils.getLong();
+		Order order = orderDAO.create(new Order(custID, dateNow, requiredDate, prodID));
 		LOGGER.info("Order succesfully made\n");
 		return order;
 	}
