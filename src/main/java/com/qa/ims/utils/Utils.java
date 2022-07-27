@@ -34,6 +34,7 @@ public class Utils {
 	}
 
 	public String getString() {
+		LOGGER.info("> awaiting input ...");
 		return scanner.nextLine();
 	}
 

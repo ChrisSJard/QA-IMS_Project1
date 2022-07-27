@@ -35,14 +35,14 @@ public class OrderController implements CrudController<Order>{
 
 	@Override
 	public Order create() {
-		LOGGER.info("Please enter a customer id number");
+		LOGGER.info("Please enter a customer id number (must exist in database)");
 		Long custID = utils.getLong();
 		LOGGER.info("Please enter delivery date xxxx-xx-xx");
 		String deliveryDate = utils.getString();
-		Date requiredDate=Date.valueOf(deliveryDate);//converting string into sql date 
+		Date requiredDate= Date.valueOf(deliveryDate);//converting string into sql date 
 		Date dateNow = Date.valueOf(LocalDate.now());
 		Order order = orderDAO.create(new Order(custID, dateNow, requiredDate));
-		LOGGER.info("Order succesfully made");
+		LOGGER.info("Order succesfully made\n");
 		return order;
 	}
 
@@ -54,12 +54,16 @@ public class OrderController implements CrudController<Order>{
 		String deliveryDate = utils.getString();
 		Date requiredDate=Date.valueOf(deliveryDate);
 		Order order = orderDAO.update(new Order(id, requiredDate));
+		LOGGER.info("Order succesfully updated\n");
 		return order;
 	}
 
 	@Override
 	public int delete() {
-		return 0;
+		LOGGER.info("Please enter the id of the order you would like to delete");
+		Long id = utils.getLong();
+		LOGGER.info("Order succesfully deleted\n");
+		return orderDAO.delete(id);
 	}
 
 }

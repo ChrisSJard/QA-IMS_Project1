@@ -12,6 +12,7 @@ public class Order {
 	
 	public Order(Long customerid, Date dateNow, Date requiredDate) {
 		this.customerID = customerid;
+		this.orderDate = dateNow;
 		this.requiredDate = requiredDate;
 	}
 	
@@ -22,7 +23,7 @@ public class Order {
 	}
 	
 	public Order(Long orderID, Date orderDate, Long customerID, Date requiredDate) {
-		this.setOrderID(id);
+		this.setOrderID(orderID);
 		this.setOrderDate(orderDate);
 		this.setCustomerID(customerID);
 		this.setRequiredDate(requiredDate);
