@@ -6,14 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.DBUtils;
 
@@ -72,10 +68,10 @@ public class OrderDAO implements Dao<Order>{
 	public Order create(Order t) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("INSERT INTO orders(orderdate, customerid, productid) VALUES (?, ?, ?)");) {
-			statement.setString(1, t.getOrderDate().toString());
-			statement.setLong(2, t.getCustomerID());
-			statement.setLong(3, t.getProductID());
+						.prepareStatement("INSERT INTO orders(customer_id, order_date, required_date) VALUES (?, ?, ?)");) {
+			statement.setLong(1, t.getCustomerID());
+			statement.setDate(2, t.getOrderDate());
+			statement.setDate(3, t.getRequiredDate());
 			statement.executeUpdate();
 			return readLatest();
 		} catch (Exception e) {
@@ -89,9 +85,9 @@ public class OrderDAO implements Dao<Order>{
 	public Order update(Order t) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("UPDATE orders SET id = ?, productid = ? WHERE id = ?");) {
+						.prepareStatement("UPDATE orders SET id = ?, required_date = ? WHERE id = ?");) {
 			statement.setLong(1, t.getOrderID());
-			statement.setLong(2, t.getProductID());
+			statement.setDate(2, t.getRequiredDate());
 			statement.executeUpdate();
 			return read(t.getOrderID());
 		} catch (Exception e) {
@@ -119,8 +115,8 @@ public class OrderDAO implements Dao<Order>{
 		Long orderID = resultSet.getLong("orderid");
 		Date orderDate = resultSet.getDate("orderdate");
 		Long customerID = resultSet.getLong("customerid");
-		Long productID = resultSet.getLong("productid");
-		return new Order(orderID, orderDate, customerID, productID);
+		Date requiredDate = resultSet.getDate("productid");
+		return new Order(orderID, orderDate, customerID, requiredDate);
 	}
 
 }

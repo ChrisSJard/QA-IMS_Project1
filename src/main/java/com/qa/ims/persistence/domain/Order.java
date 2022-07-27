@@ -5,35 +5,35 @@ import java.util.Objects;
 
 public class Order {
 	
-	private Long orderID;
+	private Long id;
 	private Date orderDate;
 	private Long customerID;
-	private Long productID;
+	private Date requiredDate;
 	
-	public Order(Date dateNow, Long customerid, Long productid) {
+	public Order(Long customerid, Date dateNow, Date requiredDate) {
 		this.customerID = customerid;
-		this.productID = productid;
+		this.requiredDate = requiredDate;
 	}
 	
-	public Order(Long id, Long productid) {
+	public Order(Long id, Date requiredDate) {
 		this.setOrderID(id);
-		this.setProductID(productid);
+		this.setRequiredDate(requiredDate);
 		
 	}
 	
-	public Order(Long id, Date orderDate, Long customerid,Long productid) {
+	public Order(Long orderID, Date orderDate, Long customerID, Date requiredDate) {
 		this.setOrderID(id);
-		this.setProductID(productid);
 		this.setOrderDate(orderDate);
-		this.setCustomerID(customerid);
+		this.setCustomerID(customerID);
+		this.setRequiredDate(requiredDate);
 	}
 
 	public Long getOrderID() {
-		return orderID;
+		return id;
 	}
 
 	public void setOrderID(Long orderID) {
-		this.orderID = orderID;
+		this.id = orderID;
 	}
 
 	public Date getOrderDate() {
@@ -52,23 +52,23 @@ public class Order {
 		this.customerID = customerID;
 	}
 
-	public Long getProductID() {
-		return productID;
+	public Date getRequiredDate() {
+		return requiredDate;
 	}
 
-	public void setProductID(Long productID) {
-		this.productID = productID;
+	public void setRequiredDate(Date requiredDate) {
+		this.requiredDate = requiredDate;
 	}
 
 	@Override
 	public String toString() {
-		return "Order [orderID=" + orderID + ", orderDate=" + orderDate + ", customerID=" + customerID + ", productID="
-				+ productID + "]";
+		return "Order [id=" + id + ", orderDate=" + orderDate + ", customerID=" + customerID + ", requiredDate="
+				+ requiredDate + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(customerID, orderDate, orderID, productID);
+		return Objects.hash(customerID, id, orderDate, requiredDate);
 	}
 
 	@Override
@@ -80,9 +80,11 @@ public class Order {
 		if (getClass() != obj.getClass())
 			return false;
 		Order other = (Order) obj;
-		return Objects.equals(customerID, other.customerID) && Objects.equals(orderDate, other.orderDate)
-				&& Objects.equals(orderID, other.orderID) && Objects.equals(productID, other.productID);
+		return Objects.equals(customerID, other.customerID) && Objects.equals(id, other.id)
+				&& Objects.equals(orderDate, other.orderDate) && Objects.equals(requiredDate, other.requiredDate);
 	}
+
+	
 	
 	
 }
