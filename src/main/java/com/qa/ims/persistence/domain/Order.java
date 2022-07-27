@@ -9,11 +9,13 @@ public class Order {
 	private Date orderDate;
 	private Long customerID;
 	private Date requiredDate;
+	private Long productid;
 	
-	public Order(Long customerid, Date dateNow, Date requiredDate) {
+	public Order(Long customerid, Date dateNow, Date requiredDate, Long productid) {
 		this.customerID = customerid;
 		this.orderDate = dateNow;
 		this.requiredDate = requiredDate;
+		this.productid = productid;
 	}
 	
 	public Order(Long id, Date requiredDate) {
@@ -22,11 +24,12 @@ public class Order {
 		
 	}
 	
-	public Order(Long orderID, Date orderDate, Long customerID, Date requiredDate) {
+	public Order(Long orderID, Date orderDate, Long customerID, Date requiredDate, Long productID) {
 		this.setOrderID(orderID);
 		this.setOrderDate(orderDate);
 		this.setCustomerID(customerID);
 		this.setRequiredDate(requiredDate);
+		this.setProductid(productID);
 	}
 
 	public Long getOrderID() {
@@ -61,15 +64,23 @@ public class Order {
 		this.requiredDate = requiredDate;
 	}
 
+	public Long getProductid() {
+		return productid;
+	}
+
+	public void setProductid(Long productid) {
+		this.productid = productid;
+	}
+
 	@Override
 	public String toString() {
 		return "Order [id=" + id + ", orderDate=" + orderDate + ", customerID=" + customerID + ", requiredDate="
-				+ requiredDate + "]";
+				+ requiredDate + ", productid=" + productid + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(customerID, id, orderDate, requiredDate);
+		return Objects.hash(customerID, id, orderDate, productid, requiredDate);
 	}
 
 	@Override
@@ -82,8 +93,11 @@ public class Order {
 			return false;
 		Order other = (Order) obj;
 		return Objects.equals(customerID, other.customerID) && Objects.equals(id, other.id)
-				&& Objects.equals(orderDate, other.orderDate) && Objects.equals(requiredDate, other.requiredDate);
+				&& Objects.equals(orderDate, other.orderDate) && Objects.equals(productid, other.productid)
+				&& Objects.equals(requiredDate, other.requiredDate);
 	}
+	
+	
 
 	
 	

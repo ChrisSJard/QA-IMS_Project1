@@ -73,12 +73,27 @@ public class OrderDAO implements Dao<Order>{
 			statement.setDate(2, t.getOrderDate());
 			statement.setDate(3, t.getRequiredDate());
 			statement.executeUpdate();
+			makeOrder(t);
 			return readLatest();
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
 		}
 		return null;
+	}
+
+	private void makeOrder(Order t) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement("INSERT INTO order_products(product_id, order_id) VALUES (?, ?)");) {
+			statement.setLong(1, t.getCustomerID());
+			statement.setLong(2, t.getProductid());
+			statement.executeUpdate();
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		
 	}
 
 	@Override
@@ -103,6 +118,7 @@ public class OrderDAO implements Dao<Order>{
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection.prepareStatement("DELETE FROM orders WHERE id = ?");) {
 			statement.setLong(1, id);
+			deleteOrderedProduct(id);
 			return statement.executeUpdate();
 		} catch (Exception e) {
 			LOGGER.debug(e);
@@ -111,13 +127,26 @@ public class OrderDAO implements Dao<Order>{
 		return 0;
 	}
 
+	private void deleteOrderedProduct(Long id) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				PreparedStatement statement = connection.prepareStatement("DELETE FROM order_products WHERE order_id = ?");) {
+			statement.setLong(1, id);
+			statement.executeUpdate();
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		
+	}
+
 	@Override
 	public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long orderID = resultSet.getLong("id");
 		Date orderDate = resultSet.getDate("order_date");
 		Long customerID = resultSet.getLong("customer_id");
 		Date requiredDate = resultSet.getDate("required_date");
-		return new Order(orderID, orderDate, customerID, requiredDate);
+		Long productID = resultSet.getLong("product_id");
+		return new Order(orderID, orderDate, customerID, requiredDate, productID);
 	}
 
 }
