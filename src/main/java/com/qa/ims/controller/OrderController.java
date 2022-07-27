@@ -8,7 +8,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.qa.ims.persistence.dao.OrderDAO;
-import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.Utils;
 
@@ -38,10 +37,11 @@ public class OrderController implements CrudController<Order>{
 	public Order create() {
 		LOGGER.info("Please enter a customer id number");
 		Long custID = utils.getLong();
-		LOGGER.info("Please enter product id number");
-		Long prodID = utils.getLong();
+		LOGGER.info("Please enter delivery date xxxx-xx-xx");
+		String deliveryDate = utils.getString();
+		Date requiredDate=Date.valueOf(deliveryDate);//converting string into sql date 
 		Date dateNow = Date.valueOf(LocalDate.now());
-		Order order = orderDAO.create(new Order(dateNow, custID, prodID));
+		Order order = orderDAO.create(new Order(custID, dateNow, requiredDate));
 		LOGGER.info("Order succesfully made");
 		return order;
 	}
@@ -50,9 +50,10 @@ public class OrderController implements CrudController<Order>{
 	public Order update() {
 		LOGGER.info("Please enter your order id ref of the order you would like to update");
 		Long id = utils.getLong();
-		LOGGER.info("Please enter a product id you want to change");
-		Long prodID = utils.getLong();
-		Order order = orderDAO.update(new Order(id, prodID));
+		LOGGER.info("Please enter new date of delivery xxxx-xx-xx");
+		String deliveryDate = utils.getString();
+		Date requiredDate=Date.valueOf(deliveryDate);
+		Order order = orderDAO.update(new Order(id, requiredDate));
 		return order;
 	}
 
