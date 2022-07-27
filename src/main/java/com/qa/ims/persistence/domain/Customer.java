@@ -43,7 +43,7 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "id:" + id + " first name:" + firstName + " surname:" + surname;
+		return "|\t " + id + " \t|\t " + firstName + " \t\t\t\t " + surname + " \t\t";
 	}
 
 	@Override

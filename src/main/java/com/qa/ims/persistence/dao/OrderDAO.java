@@ -112,10 +112,10 @@ public class OrderDAO implements Dao<Order>{
 
 	@Override
 	public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
-		Long orderID = resultSet.getLong("orderid");
-		Date orderDate = resultSet.getDate("orderdate");
-		Long customerID = resultSet.getLong("customerid");
-		Date requiredDate = resultSet.getDate("productid");
+		Long orderID = resultSet.getLong("id");
+		Date orderDate = resultSet.getDate("order_date");
+		Long customerID = resultSet.getLong("customer_id");
+		Date requiredDate = resultSet.getDate("required_date");
 		return new Order(orderID, orderDate, customerID, requiredDate);
 	}
 
