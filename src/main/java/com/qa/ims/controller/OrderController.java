@@ -44,8 +44,10 @@ public class OrderController implements CrudController<Order>{
 		LOGGER.info("Please enter a item id number (must exist in database)");
 		Long prodID = utils.getLong();
 		Order order = orderDAO.create(new Order(custID, dateNow, requiredDate, prodID));
-		LOGGER.info("Order succesfully made\n");
-		return order;
+		return (order != null) ? order : null;
+		//LOGGER.info("Order succesfully made\n");
+		//LOGGER.info(order);
+		//return order;
 	}
 
 	@Override
