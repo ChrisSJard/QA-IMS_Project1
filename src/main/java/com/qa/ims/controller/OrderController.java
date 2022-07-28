@@ -38,8 +38,7 @@ public class OrderController implements CrudController<Order>{
 		LOGGER.info("Please enter a customer id number (must exist in database)");
 		Long custID = utils.getLong();
 		LOGGER.info("Please enter delivery date xxxx-xx-xx");
-		String deliveryDate = utils.getString();
-		Date requiredDate= Date.valueOf(deliveryDate);//converting string into sql date 
+		Date requiredDate = utils.getDate();
 		Date dateNow = Date.valueOf(LocalDate.now());
 		LOGGER.info("Please enter a item id number (must exist in database)");
 		Long prodID = utils.getLong();
@@ -55,8 +54,7 @@ public class OrderController implements CrudController<Order>{
 		LOGGER.info("Please enter your order id ref of the order you would like to update");
 		Long id = utils.getLong();
 		LOGGER.info("Please enter new date of delivery xxxx-xx-xx");
-		String deliveryDate = utils.getString();
-		Date requiredDate=Date.valueOf(deliveryDate);
+		Date requiredDate = utils.getDate();
 		Order order = orderDAO.update(new Order(id, requiredDate));
 		LOGGER.info("Order succesfully updated\n");
 		return order;
