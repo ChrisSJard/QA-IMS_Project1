@@ -175,7 +175,7 @@ mvn package - build the package
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning.
+We use Git for version control.
 
 ## Authors
 
