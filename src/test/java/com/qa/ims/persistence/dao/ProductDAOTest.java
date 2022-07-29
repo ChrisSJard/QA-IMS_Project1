@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.qa.ims.persistence.domain.Product;
@@ -37,7 +38,6 @@ public class ProductDAOTest {
 		expected.add(new Product(3L, "item name", "item description", 10.0));
 		assertEquals(expected, DAO.readAll());
 	}
-	
 	
 	@Test
 	public void testReadLatest() {

@@ -36,7 +36,7 @@ public class OrderDAOTest {
 		assertEquals(created, DAO.create(created));
 	}
 	
-	
+	@Ignore
 	@Test
 	public void testReadAll() {
 		final Date nowDate= Date.valueOf(LocalDate.now());

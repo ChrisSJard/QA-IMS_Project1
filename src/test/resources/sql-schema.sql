@@ -1,5 +1,5 @@
-CREATE database IF NOT EXISTS ims;
-USE `ims` ;
+CREATE database IF NOT EXISTS imsTest;
+USE `imsTest` ;
 DROP TABLE IF EXISTS `customers`;
 DROP TABLE IF EXISTS `products`;
 DROP TABLE IF EXISTS `orders`;

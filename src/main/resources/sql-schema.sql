@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `ims`.`orders` (
     `customer_id` INT(11),
     `order_date` Date,
     `required_date` Date,
-    `product_id` Date,
+    `product_id` INT(11),
     PRIMARY KEY (`id`),
     foreign key (`customer_id`) references customers(id)
 );

@@ -75,7 +75,7 @@ public class OrderDAO implements Dao<Order>{
 				statement.setDate(3, t.getRequiredDate());
 				statement.setLong(4, t.getProductid());
 				statement.executeUpdate();
-				makeOrder(t);
+				//makeOrder(t);
 				return readLatest();	
 			} catch (Exception e) {
 				LOGGER.debug(e);
@@ -95,7 +95,7 @@ public class OrderDAO implements Dao<Order>{
 			statement.setLong(1, prodID);
 			try (ResultSet resultSet = statement.executeQuery();) {
 				resultSet.next();
-				Long productID = resultSet.getLong("product_id");
+				Long productID = resultSet.getLong("id");
 				LOGGER.info(productID);
 				return true;
 			}
