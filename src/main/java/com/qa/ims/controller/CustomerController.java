@@ -32,6 +32,7 @@ public class CustomerController implements CrudController<Customer> {
 	@Override
 	public List<Customer> readAll() {
 		List<Customer> customers = customerDAO.readAll();
+		LOGGER.info("\nLISTING CUSTOMERS \n------------------\n" + "|\t id \t|\t First Name        \t|\t Surname         \t|");
 		for (Customer customer : customers) {
 			LOGGER.info(customer);
 		}

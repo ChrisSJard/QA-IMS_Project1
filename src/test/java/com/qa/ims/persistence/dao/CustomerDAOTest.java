@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.qa.ims.persistence.domain.Customer;
@@ -23,7 +24,7 @@ public class CustomerDAOTest {
 
 	@Test
 	public void testCreate() {
-		final Customer created = new Customer(2L, "chris", "perrins");
+		final Customer created = new Customer(5L, "chris", "perrins");
 		assertEquals(created, DAO.create(created));
 	}
 
@@ -31,6 +32,8 @@ public class CustomerDAOTest {
 	public void testReadAll() {
 		List<Customer> expected = new ArrayList<>();
 		expected.add(new Customer(1L, "jordan", "harrison"));
+		expected.add(new Customer(2L, "jordan", "harrison"));
+		expected.add(new Customer(3L, "jordan", "harrison"));
 		assertEquals(expected, DAO.readAll());
 	}
 
@@ -47,7 +50,7 @@ public class CustomerDAOTest {
 
 	@Test
 	public void testUpdate() {
-		final Customer updated = new Customer(1L, "chris", "perrins");
+		final Customer updated = new Customer(2L, "chris", "perrins");
 		assertEquals(updated, DAO.update(updated));
 
 	}
