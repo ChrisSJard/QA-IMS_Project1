@@ -1,5 +1,11 @@
 # Project Title -  QA-SoftwareCore-Fundamental-Project-Specification
 
+Please view Release Version 1.0.0 to view document
+* Packaged Jar file
+* UML diagram - file IMS UML.drawio open into drawer.io web application as size is large.
+* ERD diagram - file IMS ERD_ open into drawer.io web application.
+* Risk assessment documentation.
+
 ## Objective
 
 The overall objective of the project is the following:
