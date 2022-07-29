@@ -90,6 +90,7 @@ An interface will appear to run various CRUD applications on the console
 Once steps are perfromed in Getting Started section.
 Run the Runner.java in your ide or console.
 A termianl will appear as shown:
+```
 Welcome to the Inventory Management System!
 CUSTOMER: Information about customers
 ITEM: Individual Items
@@ -114,7 +115,7 @@ Product created
 
 Input >> Read
 Product "[productid=1, description= "", name= "", value = long]"
-
+```
  
 ## Running the tests
 
